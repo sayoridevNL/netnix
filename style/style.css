@@ -38,12 +38,14 @@ header {
 
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
-  float: center;
+  float: none;
   padding: 6px;
   border: none;
   margin-top: 8px;
   margin-right: 40px;
   font-size: 17px;
+  margin-left: 35%;
+  width: 300px;
 }
 
 #login {
