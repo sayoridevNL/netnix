@@ -1,78 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="/style/style.css">
-    <link rel="icon" type="image/x-icon" href="/images/logo2.png">
+  <meta charset="UTF-8">
+  <title>NetNix Admin Dashboard</title>
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="icon" type="image/x-icon" href="images/logo2.png">
 </head>
-<body>
-    <header>
-        <!--Image-->
-        <!--Navigatie-->
-        <div class="topnav">
-            <a class="#home" href="index.html"><img src="images/logo2.png" alt="NetNix Logo" class="nav-logo"> Home</a>
-            <a id="admin" href="adminpagina.html">Admin</a>
-            <a id="login" href="#contact">Login</a>
-            <input id="zoekbalk" type="text" placeholder="Search..">
-        </div>
-    </header>
-    
-    <main>
-        <section class="content-section">
-            <h2 class="section-title">Admin Dashboard</h2>
-            
-            <!-- Add Movie Form -->
-            <div class="admin-section">
-                <h3>Add New Movie</h3>
-                <form id="movieForm" class="admin-form">
-                    <div class="form-group">
-                        <label for="title">Movie Title:</label>
-                        <input type="text" id="title" name="title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="year">Year:</label>
-                        <input type="number" id="year" name="year" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rating">Rating:</label>
-                        <input type="number" id="rating" name="rating" step="0.1" min="0" max="10" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-play">Add Movie</button>
-                </form>
-            </div>
 
-            <!-- Movies List -->
-            <div class="admin-section">
-                <h3>Movies List</h3>
-                <table class="movies-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Year</th>
-                            <th>Rating</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="moviesTableBody">
-                        <!-- Movies will be loaded here from JSON -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
-    
-    <script src="js/admin.js"></script>
-    
-    <footer>
-        <p class="footer-bottom">&copy; 2026 NetNix. All rights reserved.</p>
-    </footer>
+<body>
+
+<header>
+  <div class="topnav">
+    <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
+    <a href="index.html">Home</a>
+    <a href="adminpagina.html">Admin</a>
+    <a href="#">Login</a>
+    <input type="text" placeholder="Search">
+  </div>
+</header>
+
+<main>
+  <h2>Admin Dashboard</h2>
+
+  <ul class="admin-list">
+    <li>
+      <img src="images/logo2.png" alt="Dashboard Item 1">
+      <span>Manage Movies</span>
+    </li>
+    <li>
+      <img src="images/logo2.png" alt="Dashboard Item 2">
+      <span>Manage Users</span>
+    </li>
+    <li>
+      <img src="images/logo2.png" alt="Dashboard Item 3">
+      <span>Manage Categories</span>
+    </li>
+    <li>
+      <img src="images/logo2.png" alt="Dashboard Item 4">
+      <span>Manage Settings</span>
+    </li>
+  </ul>
+</main>
+
+<footer>
+  <p>&copy; 2026 NetNix</p>
+</footer>
+
 </body>
 </html>

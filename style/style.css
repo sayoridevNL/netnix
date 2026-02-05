@@ -1,361 +1,145 @@
+/* Reset */
 * {
-    margin: 0px;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
+/* Body */
+body {
+  background: #111; /* black background */
+  color: #ffffff;
+}
+
+/* Header */
 header {
-    display: block;
-    background-color: #0a0a0a;
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 2px solid #0066cc;
+  background: #000c42; /* subtle blue */
+  padding: 15px;
 }
 
 .topnav {
-  overflow: hidden;
-  background-color: transparent;
-  height: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 50px;
+  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  gap: 10px;
+}
+
+.logo-img {
+  height: 40px;
+  margin-right: 15px;
 }
 
 .topnav a {
-  float: left;
-  display: inline-block;
   color: #ffffff;
-  text-align: center;
-  padding: 12px 20px;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: normal;
-  transition: color 0.2s;
-  align-items: center;
+  margin-right: 15px;
+  font-weight: bold;
 }
 
-.nav-logo {
-  height: 30px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-  color: #0066cc;
-}
-
-/* Style the "active" element to highlight the current page */
-.topnav a.active {
-  color: #0027d0;
-}
-
-/* Style the search box inside the navigation bar */
-.topnav input[type=text] {
-  float: right;
-  padding: 10px 15px;
-  border: 1px solid #0066cc;
+.topnav input {
+  margin-left: auto;
+  padding: 5px 10px;
   border-radius: 4px;
-  margin-top: 5px;
-  margin-right: 20px;
-  font-size: 14px;
-  margin-left: 0;
-  width: 200px;
-  background-color: #2a2a2a;
-  color: #ffffff;
-  transition: border-color 0.2s;
+  border: none;
+  max-width: 200px;
+  background: #222;
+  color: #fff;
 }
 
-.topnav input[type=text]::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.topnav input[type=text]:focus {
-  background-color: rgba(255, 255, 255, 0.2);
-  outline: none;
-}
-
-#login {
-  float: none;
-  display: inline-block;
-}
-
-#admin {
-  float: none;
-  display: inline-block;
-}
-
-body {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-family: 'Arial', 'Helvetica', sans-serif;
-}
-
+/* Main */
 main {
-  margin-top: 80px;
-  padding-bottom: 50px;
+  padding: 20px;
 }
 
-/* Hero/Featured Section */
-.hero {
-  height: 500px;
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/logo2.png');
-  background-size: cover;
-  background-position: center;
+h2 {
+  margin-bottom: 15px;
+  color: #0027d0; /* subtle blue headings */
+}
+
+/* Movie / Admin list - vertical */
+.movie-list,
+.admin-list {
+  list-style: none;
   display: flex;
-  align-items: flex-end;
-  padding: 60px 50px;
-  margin-bottom: 20px;
-}
-
-.hero-content h1 {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.hero-content p {
-  font-size: 20px;
-  margin-bottom: 20px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.hero-buttons {
-  display: flex;
+  flex-direction: column; /* vertical layout */
   gap: 15px;
 }
 
-.btn {
-  padding: 12px 25px;
-  font-size: 16px;
-  border: none;
+.movie-list li,
+.admin-list li {
+  background: #222; /* dark card background */
+  padding: 10px;
+  text-align: left; /* left-align for vertical cards */
+  border-radius: 6px;
+  display: flex; /* image + text side by side */
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.movie-list li:hover,
+.admin-list li:hover {
+  transform: translateY(-5px);
+  background: #333; /* hover slightly lighter */
+}
+
+.movie-list img,
+.admin-list img {
+  width: 80px; /* smaller, uniform size */
+  height: auto;
   border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s;
-}
-
-.btn-play {
-  background-color: #0066cc;
-  color: #fff;
-}
-
-.btn-play:hover {
-  background-color: #0052a3;
-}
-
-.btn-info {
-  background-color: transparent;
-  color: #ffffff;
-  border: 2px solid #0066cc;
-}
-
-.btn-info:hover {
-  background-color: #0066cc;
-  color: #fff;
-}
-
-/* Content Sections */
-.content-section {
-  padding: 0 50px;
-  margin-bottom: 50px;
-}
-
-.section-title {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #0066cc;
-  text-shadow: none;
-  background-color: transparent;
-  padding: 0;
-  border: none;
-  display: block;
-}
-
-.movie-row {
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  scroll-behavior: smooth;
-  padding-bottom: 10px;
-}
-
-.movie-row::-webkit-scrollbar {
-  height: 8px;
-}
-
-.movie-row::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.movie-row::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-}
-
-.movie-card {
-  min-width: 200px;
-  height: 300px;
-  background-color: #2a2a2a;
-  border-radius: 4px;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.2s;
-  border: 1px solid #333;
-}
-
-.movie-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.movie-card:hover {
-  transform: scale(1.05);
-  border: 1px solid #0066cc;
+  margin-bottom: 0; /* remove bottom margin for horizontal alignment */
 }
 
 /* Footer */
 footer {
-  background-color: #0a0a0a;
-  padding: 20px 50px;
-  border-top: 2px solid #0066cc;
-  margin-top: 50px;
-}
-
-.footer-content {
-  display: none;
-}
-
-.footer-section h4 {
-  display: none;
-}
-
-.footer-section ul {
-  display: none;
-}
-
-.footer-section ul li {
-  display: none;
-}
-
-.footer-section a {
-  display: none;
-}
-
-.footer-section a:hover {
-  display: none;
-}
-
-.footer-bottom {
-  color: #808080;
-  font-size: 14px;
-  border-top: none;
-  padding-top: 20px;
   text-align: center;
-}
-
-/* Admin Page Styles */
-.admin-section {
-  background-color: #2a2a2a;
-  padding: 25px;
-  margin-bottom: 30px;
-  border-radius: 4px;
-  border: 1px solid #333;
-}
-
-.admin-section h3 {
-  color: #0066cc;
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
-.admin-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  color: #ffffff;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 10px;
-  border: 1px solid #0066cc;
-  border-radius: 4px;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #0099ff;
-  background-color: #2a2a2a;
-}
-
-.movies-table {
-  width: 100%;
-  border-collapse: collapse;
+  padding: 15px;
+  background: #000c42; /* subtle blue footer */
+  margin-top: 30px;
   color: #ffffff;
 }
 
-.movies-table thead {
-  background-color: #1a1a1a;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .topnav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topnav input {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .movie-list li,
+  .admin-list li {
+    flex-direction: column; /* stack image above text on small screens */
+    text-align: center;
+  }
+
+  .movie-list img,
+  .admin-list img {
+    width: 100px;
+    margin-bottom: 8px;
+  }
 }
 
-.movies-table th {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 2px solid #0066cc;
-  color: #0066cc;
-  font-weight: bold;
+@media (max-width: 480px) {
+  .movie-list li,
+  .admin-list li {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .movie-list img,
+  .admin-list img {
+    width: 100%;
+  }
 }
 
-.movies-table td {
-  padding: 12px;
-  border-bottom: 1px solid #333;
-}
 
-.movies-table tr:hover {
-  background-color: #333;
-}
-
-.action-btn {
-  padding: 6px 12px;
-  margin-right: 5px;
-  font-size: 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #0066cc;
-  color: #fff;
-  transition: background-color 0.2s;
-}
-
-.action-btn:hover {
-  background-color: #0052a3;
-}
-
-.action-btn.delete {
-  background-color: #cc3333;
-}
-
-.action-btn.delete:hover {
-  background-color: #aa2222;
-}
 
