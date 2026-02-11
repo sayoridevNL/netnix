@@ -13,7 +13,7 @@
   <div class="topnav">
     <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
     <a href="index.html">Home</a>
-    <a href="adminpagina.html">Admin</a>
+    <a href="adminpagina.php">Admin</a>
     <a href="#">Login</a>
     <input type="text" placeholder="Search">
   </div>
