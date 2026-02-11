@@ -1,3 +1,18 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "netnix";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  echo "Connected successfully";
+} catch(PDOException $e) {
+  echo "Connection failed: " . $e->getMessage();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +27,8 @@
 <header>
   <div class="topnav">
     <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
-    <a href="index.html">Home</a>
-    <a href="adminpagina.html">Admin</a>
+    <a href="index.php">Home</a>
+    <a href="adminpagina.php">Admin</a>
     <a href="#">Login</a>
     <input type="text" placeholder="Search">
   </div>
