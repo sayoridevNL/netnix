@@ -19,7 +19,7 @@ try {
   $result = $conn->query($sql);
   // Process the result set
   if ($result->rowCount() > 0) {
-    echo "<table><tr><th>ID</th><th>Firstname</th><th>Lastname</th></tr>";
+    echo "<table><tr><th>ID</th><th>name</th><th>video</th></tr>";
     // Output data of each row
     while($row = $result->fetch()) {
       echo "<tr>";
