@@ -14,7 +14,7 @@ try {
 }
 
 try {
-  $sql = "SELECT id, firstname, lastname FROM MyGuests";
+  $sql = "SELECT id, name, video FROM video";
   // Execute the SQL query
   $result = $conn->query($sql);
   // Process the result set
@@ -24,12 +24,13 @@ try {
     while($row = $result->fetch()) {
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
-      echo "<td>" . $row['firstname'] . "</td>";
-      echo "<td>" . $row['lastname'] . "</td>";
+      echo "<td>" . $row['name'] . "</td>";
+      echo "<td>" . $row['video'] . "</td>";
       echo "</tr>";
     }
     echo "</table>";
     unset($result);
+  }
   else {
     echo "No records found.";
   }
@@ -38,7 +39,6 @@ try {
 }
 
 $conn = null;
-?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
