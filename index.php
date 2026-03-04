@@ -6,20 +6,17 @@ $dbname = "netnix";
 
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  /*echo*/ "Connected successfully";
 } catch(PDOException $e) {
-  /*echo*/ "Connection failed: " . $e->getMessage();
+  echo "Connection failed: " . $e->getMessage();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>NetNix</title>
-  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/style.css?v=<?php echo time(); ?>">
 </head>
 
 <body>
@@ -38,36 +35,33 @@ try {
   <h2>Movies</h2>
 
   <ul class="movie-list">
-    <li>
-      <img src="images/logo2.png" alt="Movie 1">
-      <?php
-try {
-  $sql = "SELECT id, name, video FROM video";
-  // Execute the SQL query
-  $result = $conn->query($sql);
-  // Process the result set
-  if ($result->rowCount() > 0) {
-    echo "<table><tr><th>FILMNAAM</th></tr>";
-    // Output data of each row
-    while($row = $result->fetch()) {
-      echo "<tr>";
-      echo "<td>" . $row['name'] . "</td>";
-      "<td>" . $row['video'] . "</td>";
-      echo "</tr>";
-    }
-    echo "</table>";
-    unset($result);
-  }
-  else {
-    echo "No records found.";
-  }
-} catch(PDOException $e) {
-  echo "Error: " . $e->getMessage();
-}
+    <?php
+    try {
+      $sql = "SELECT id, name, video FROM video";
+      $result = $conn->query($sql);
 
-$conn = null;
-?>
-    </li>
+      if ($result->rowCount() > 0) {
+        while($row = $result->fetch()) {
+          ?>
+          <li>
+            <a href="videopagina.php?id=<?php echo $row['id']; ?>">
+              <img src="images/logo2.png" alt="Movie Logo">
+              <div class="movie-info">
+                <span class="label">FILMNAAM</span>
+                <span class="name"><?php echo $row['name']; ?></span>
+              </div>
+            </a>
+          </li>
+          <?php
+        }
+      } else {
+        echo "No records found.";
+      }
+    } catch(PDOException $e) {
+      echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+    ?>
   </ul>
 </main>
 
