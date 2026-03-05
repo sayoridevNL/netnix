@@ -58,13 +58,14 @@ try {
 =======
     <?php
     try {
-      $sql = "SELECT id, name, video FROM video";
+      $sql = "SELECT id, name, video, thumbnail FROM video";
       $result = $conn->query($sql);
 
       if ($result->rowCount() > 0) {
         // The loop starts here
         while($row = $result->fetch()) {
           ?>
+<<<<<<< Updated upstream
             <a href="videopagina.php?id=<?php echo $row['id']; ?>">
               <li>
               <img src="images/logo2.png" alt="Movie Logo">
@@ -76,6 +77,20 @@ try {
             </a>
           
           <?php
+=======
+      <li>
+        <a href="videopagina.php?id=<?php echo $row['id']; ?>">
+          <img src="images/<?php echo htmlspecialchars($row['thumbnail']); ?>" alt="Thumbnail">
+          <div class="movie-info">
+            <span class="label">FILMNAAM</span>
+            <span class="name">
+              <?php echo $row['name']; ?>
+            </span>
+          </div>
+        </a>
+      </li>
+      <?php
+>>>>>>> Stashed changes
         }
       } else {
         echo "No records found.";

@@ -42,6 +42,32 @@
   </ul>
 </main>
 
+<<<<<<< Updated upstream
+=======
+<div class="modal-overlay">
+    <div class="modal-content">
+        <label for="modal-toggle" class="close-btn">&times;</label>
+        <h3>Upload New Movie</h3>
+        
+        <form action="upload.php" method="POST" enctype="multipart/form-data">
+            <label class="form-label">Select Movie File:</label>
+            <input type="file" name="movie_file" accept="video/mp4, video/mov" required>
+
+            <label class="form-label">Thumbnail:</label>
+            <input type="file" name="thumbnail_file" accept="image/png, image/jpeg" required>
+
+            <label class="form-label">Naam:</label>
+            <input type="text" name="movie_name" placeholder="Enter title..." required>
+
+            <label class="form-label">Beschrijving:</label>
+            <textarea name="movie_desc" rows="4" placeholder="Enter description..."></textarea>
+
+            <button type="submit" class="save-btn">Save Movie</button><br>
+        </form>
+    </div>
+</div>
+
+>>>>>>> Stashed changes
 <footer>
   <p>&copy; 2026 NetNix</p>
 </footer>
