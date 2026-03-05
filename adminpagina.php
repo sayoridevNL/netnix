@@ -42,21 +42,26 @@ try {
     <ul class="movie-list">
         <li class="movie-manage-item">
             <label for="modal-toggle" class="open-modal-label">
-                <img src="images/logo2.png" alt="Manage Movies">
-                <span class="name">Manage Movies</span>
+                <img src="images/upload.png" alt="add movies">
+                <div class="movie-info">
+                <span class="name">Add Movies</span>
             </label>
         </li>
         <li>
-            <img src="images/logo2.png" alt="Dashboard Item 2">
+            <img src="images/upload.png" alt="Dashboard Item 2">
+            <div class="movie-info">
             <span class="name">Manage Users</span>
         </li>
         <li>
-            <img src="images/logo2.png" alt="Dashboard Item 3">
+            <img src="images/upload.png" alt="Dashboard Item 3">
+            <div class="movie-info">
             <span class="name">Manage Categories</span>
         </li>
         <li>
-            <img src="images/logo2.png" alt="Dashboard Item 4">
+            <img src="images/upload.png" alt="Dashboard Item 4">
+            <div class="movie-info">
             <span class="name">Manage Settings</span>
+            </div>
         </li>
     </ul>
 </main>
