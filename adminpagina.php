@@ -42,20 +42,25 @@ try {
     <ul class="movie-list">
         <li class="movie-manage-item">
             <label for="modal-toggle" class="open-modal-label">
-                <img src="images/upload.png" alt="add movies">
-                <div class="movie-info">
+              <img src="images/upload.png" alt="Add movies">
+              <div class="movie-info">
                 <span class="name">Add Movies</span>
+              </div>
             </label>
         </li>
         <li>
+            <a href="update.php">
             <img src="images/upload.png" alt="Dashboard Item 2">
             <div class="movie-info">
-            <span class="name">Manage Users</span>
+            <span class="name">Manage Movies</span>
+            </div>
+            </a>
         </li>
         <li>
-            <img src="images/upload.png" alt="Dashboard Item 3">
+            <img src="images/upload.png" alt="Dashboard Item 3">        
             <div class="movie-info">
             <span class="name">Manage Categories</span>
+            </div>
         </li>
         <li>
             <img src="images/upload.png" alt="Dashboard Item 4">

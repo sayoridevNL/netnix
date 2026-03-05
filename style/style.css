@@ -81,9 +81,7 @@
   .movie-list img {
     width: 90%;
     margin: 0 auto;
-    height: 150px;
     object-fit: cover;
-    display: block;
     border-radius: 4px;
   }
 

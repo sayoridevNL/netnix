@@ -13,6 +13,7 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>NetNix</title>
@@ -21,21 +22,21 @@ try {
 
 <body>
 
-<header>
-  <div class="topnav">
-    <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
-    <a href="#">Home</a>
-    <a href="adminpagina.php">Admin</a>
-    <a href="#">Login</a>
-    <input type="text" placeholder="Search">
-  </div>
-</header>
+  <header>
+    <div class="topnav">
+      <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
+      <a href="index.php">Home</a>
+      <a href="adminpagina.php">Admin</a>
+      <a href="#">Login</a>
+      <input type="text" placeholder="Search">
+    </div>
+  </header>
 
-<main>
-  <h2>Movies</h2>
+  <main>
+    <h2>Movies</h2>
 
-  <ul class="movie-list">
-    <?php
+    <ul class="movie-list">
+      <?php
     try {
       $sql = "SELECT id, name, video FROM video";
       $result = $conn->query($sql);
@@ -43,16 +44,18 @@ try {
       if ($result->rowCount() > 0) {
         while($row = $result->fetch()) {
           ?>
-          <li>
-            <a href="videopagina.php?id=<?php echo $row['id']; ?>">
-              <img src="images/logo2.png" alt="Movie Logo">
-              <div class="movie-info">
-                <span class="label">FILMNAAM</span>
-                <span class="name"><?php echo $row['name']; ?></span>
-              </div>
-            </a>
-          </li>
-          <?php
+      <li>
+        <a href="videopagina.php?id=<?php echo $row['id']; ?>">
+          <img src="images/logo2.png" alt="Movie Logo">
+          <div class="movie-info">
+            <span class="label">FILMNAAM</span>
+            <span class="name">
+              <?php echo $row['name']; ?>
+            </span>
+          </div>
+        </a>
+      </li>
+      <?php
         }
       } else {
         echo "No records found.";
@@ -62,12 +65,13 @@ try {
     }
     $conn = null;
     ?>
-  </ul>
-</main>
+    </ul>
+  </main>
 
-<footer>
-  <p>&copy; 2026 NetNix</p>
-</footer>
+  <footer>
+    <p>&copy; 2026 NetNix</p>
+  </footer>
 
 </body>
+
 </html>
