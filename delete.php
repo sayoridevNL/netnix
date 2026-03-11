@@ -11,16 +11,30 @@ try {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        $sql = "DELETE FROM video WHERE id = :id";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id', $id);
+        // 1. Zoek de bestandsnaam op in de database VOORDAT we de rij verwijderen
+        $stmt = $conn->prepare("SELECT video FROM video WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $videoData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $stmt->execute();
+        if ($videoData) {
+            $bestandsnaam = $videoData['video'];
+            $pad = "uploads/" . $bestandsnaam; // Dit verwijst naar jouw map 'uploads'
+
+            // 2. Controleer of het bestand echt bestaat en verwijder het dan
+            if (file_exists($pad)) {
+                unlink($pad); // Dit verwijdert het bestand uit de map 'uploads'
+            }
+        }
+
+        // 3. Nu de database-rij verwijderen
+        $deleteSql = "DELETE FROM video WHERE id = :id";
+        $deleteStmt = $conn->prepare($deleteSql);
+        $deleteStmt->execute(['id' => $id]);
     }
 } catch(PDOException $e) {
-    echo "Fout bij verwijderen: " . $e->getMessage();
+    die("Fout bij verwijderen: " . $e->getMessage());
 }
 
-header("Location: index.php"); 
+// Terug naar het overzicht
+header("Location: index.php");
 exit();
-?>
