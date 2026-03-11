@@ -38,15 +38,15 @@ try {
     <ul class="movie-list">
       <?php
     try {
-      $sql = "SELECT id, name, video FROM video";
-      $result = $conn->query($sql);
+      $sql = "SELECT id, name, video, thumbnail  FROM video";
+         $result = $conn->query($sql);
 
       if ($result->rowCount() > 0) {
         while($row = $result->fetch()) {
           ?>
       <li>
         <a href="videopagina.php?id=<?php echo $row['id']; ?>">
-          <img src="images/logo2.png" alt="Movie Logo">
+          <img class="thumbnail" src="thumbnails/<?=htmlspecialchars($row['thumbnail']) ?>" alt="Movie Logo">
           <div class="movie-info">
             <span class="label">FILMNAAM</span>
             <span class="name">
