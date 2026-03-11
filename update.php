@@ -13,6 +13,7 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>NetNix</title>
@@ -21,23 +22,65 @@ try {
 
 <body>
 
-<header>
-  <div class="topnav">
-    <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
-    <a href="index.php">Home</a>
-    <a href="adminpagina.php">Admin</a>
-    <a href="#">Login</a>
-    <input type="text" placeholder="Search">
-  </div>
-</header>
+  <header>
+    <div class="topnav">
+      <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
+      <a href="index.php">Home</a>
+      <a href="adminpagina.php">Admin</a>
+      <a href="#">Login</a>
+      <input type="text" placeholder="Search">
+    </div>
+  </header>
 
-<main>
+  <main>
+    <?php
+session_start();
 
-</main>
+$sql = "SELECT * FROM video";
+$result = $conn->query($sql);
+?>
 
-<footer>
-  <p>&copy; 2026 NetNix</p>
-</footer>
+    <table class="admintabel">
+
+      <tr>
+        <th>ID</th>
+        <th>Naam</th>
+        <th>Video</th>
+        <th>Uploaded at</th>
+        <th>Acties</th>
+      </tr>
+
+      <?php while($row = $result->fetch(PDO::FETCH_ASSOC)){ ?>
+
+      <tr>
+        <td>
+          <?php echo $row['id']; ?>
+        </td>
+        <td>
+          <?php echo $row['name']; ?>
+        </td>
+        <td>
+          <?php echo $row['video']; ?>
+        </td>
+        <td>
+          <?php echo $row['uploaded at']; ?>
+        </td>
+        <td>
+          <a href="delete.php?id=<?php echo $row['id']; ?>" 
+             onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
+             Verwijderen
+          </a>
+        </td>
+      </tr>
+      <?php } ?>
+    </table>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 NetNix</p>
+  </footer>
 
 </body>
+
 </html>

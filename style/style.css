@@ -291,6 +291,17 @@
     color: #fff;
 }
 
+.admintabel{
+margin-top:20px;
+border-collapse:collapse;
+width:100%;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
