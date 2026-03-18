@@ -142,3 +142,262 @@ footer {
   }
 
 
+<<<<<<< Updated upstream
+=======
+  .back-btn:hover {
+    background: rgb(0, 7, 139);
+  }
+
+  video {
+    width: 100%;
+    max-height: 70vh;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    background-color: #000;
+    object-fit: contain;
+  }
+/* --- Stylish Modal Section --- */
+
+/* 1. The Trigger Logic */
+#modal-toggle {
+    display: none;
+}
+
+/* Blur the background and disable card hovers when open to stop flickering */
+#modal-toggle:checked ~ main {
+    filter: blur(8px) grayscale(20%);
+    pointer-events: none; /* Critical: This stops the flickering */
+    user-select: none;
+}
+
+#modal-toggle:checked ~ .modal-overlay {
+    display: flex;
+}
+
+/* 2. The Overlay (Glassmorphism Effect) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Darker backdrop */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 3. The Modal Window */
+.modal-content {
+    background: #181818; /* Solid deep grey */
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 480px;
+    color: white;
+    position: relative;
+    border: 1px solid #333;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    text-align: left;
+    animation: slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.modal-content h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+/* 4. Form Styling */
+.modal-content label.form-label {
+    display: block;
+    margin-top: 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #b3b3b3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="file"],
+.modal-content textarea {
+    width: 100%;
+    padding: 12px 16px;
+    margin-top: 8px;
+    background: #2b2b2b;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.modal-content input:focus, 
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #0046ff; /* Netflix Red border on focus */
+    background: #333;
+}
+
+/* 5. The Stylish "Save Movie" Button */
+.save-btn {
+    width: 100%;
+    background: #0046ff; /* Netflix Red */
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 30px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.save-btn:hover {
+    background: #2100f4;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(64, 9, 229, 0.4);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+/* 6. Close Button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 2rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+.admintabel{
+margin-top:20px;
+border-collapse:collapse;
+width:100%;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+}
+
+/* Container voor het bewerk-formulier */
+.edit-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #1a1a1a; /* Donkergrijs */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    color: white;
+}
+
+.edit-container h2 {
+    color: #0046ff; /* NetNix Rood */
+    margin-top: 0;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Styling voor de invoervelden */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #bbb;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 4px;
+    box-sizing: border-box; /* Zorgt dat padding de breedte niet verpest */
+    font-size: 16px;
+}
+
+.form-group textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* Focus effect voor de inputs */
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: #0046ff;
+    outline: none;
+    background-color: #444;
+}
+
+/* Knoppen styling */
+.form-actions {
+    margin-top: 30px;
+}
+
+.btn-save {
+    background-color: #0046ff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-save:hover {
+    background-color: #2100f4;
+}
+
+.btn-cancel {
+    margin-left: 15px;
+    color: #999;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-cancel:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.thumbnail {
+  max-height: 97px;
+    max-width: 199px;
+} 
+>>>>>>> Stashed changes
