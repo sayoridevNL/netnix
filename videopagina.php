@@ -51,7 +51,7 @@ $conn = null;
 <div>
     <p><?php echo htmlspecialchars($movie['beschrijving']); ?></p>
 </div>
-    <a class="back-btn" href="index.php">← Back to Movies</a>
+    <a class="back-btn" href="voorpagina.php">← Back to Movies</a>
 
 </div>
 

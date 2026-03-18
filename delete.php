@@ -11,22 +11,30 @@ try {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        // 1. Zoek de bestandsnaam op in de database VOORDAT we de rij verwijderen
-        $stmt = $conn->prepare("SELECT video FROM video WHERE id = :id");
+        // 1. Zoek de bestandsnamen van de video én de thumbnail op
+        $stmt = $conn->prepare("SELECT video, thumbnail FROM video WHERE id = :id");
         $stmt->execute(['id' => $id]);
         $videoData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($videoData) {
-            $bestandsnaam = $videoData['video'];
-            $pad = "uploads/" . $bestandsnaam; // Dit verwijst naar jouw map 'uploads'
+            // --- VIDEO VERWIJDEREN ---
+            $videoBestand = $videoData['video'];
+            $videoPad = "uploads/" . $videoBestand;
+            
+            if (!empty($videoBestand) && file_exists($videoPad)) {
+                unlink($videoPad);
+            }
 
-            // 2. Controleer of het bestand echt bestaat en verwijder het dan
-            if (file_exists($pad)) {
-                unlink($pad); // Dit verwijdert het bestand uit de map 'uploads'
+            // --- THUMBNAIL VERWIJDEREN ---
+            $thumbBestand = $videoData['thumbnail'];
+            $thumbPad = "thumbnails/" . $thumbBestand; // Verwijst naar jouw nieuwe map
+            
+            if (!empty($thumbBestand) && file_exists($thumbPad)) {
+                unlink($thumbPad);
             }
         }
 
-        // 3. Nu de database-rij verwijderen
+        // 2. Nu de database-rij verwijderen
         $deleteSql = "DELETE FROM video WHERE id = :id";
         $deleteStmt = $conn->prepare($deleteSql);
         $deleteStmt->execute(['id' => $id]);
@@ -36,5 +44,5 @@ try {
 }
 
 // Terug naar het overzicht
-header("Location: index.php");
+header("Location: voorpagina.php");
 exit();

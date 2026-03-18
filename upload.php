@@ -4,50 +4,54 @@ $username = "root";
 $password = "";
 $dbname = "netnix";
 
-$target_dir = "uploads/";
+// Definieer de twee verschillende mappen
+$video_dir = "uploads/";
+$thumb_dir = "thumbnails/";
 
-// Zorg dat de map bestaat
-if (!is_dir($target_dir)) {
-    mkdir($target_dir, 0777, true);
-}
+// Zorg dat beide mappen bestaan
+if (!is_dir($video_dir)) mkdir($video_dir, 0777, true);
+if (!is_dir($thumb_dir)) mkdir($thumb_dir, 0777, true);
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        
         $movie_name = $_POST['movie_name'];
         $movie_desc = $_POST['movie_desc'];
-        
-        // 1. Maak de unieke bestandsnaam aan (ZONDER de mapnaam)
-        $clean_file_name = time() . "_" . basename($_FILES["movie_file"]["name"]);
-        
-        // 2. Het volledige pad waar PHP het bestand naartoe moet schrijven
-        $upload_destination = $target_dir . $clean_file_name;
-        
-        // 3. Verplaats het bestand fysiek naar /uploads
-        if (move_uploaded_file($_FILES["movie_file"]["tmp_name"], $upload_destination)) {
-            
-            // 4. Sla ALLEEN de schone bestandsnaam op in de database
-            $sql = "INSERT INTO Video (name, beschrijving, video) VALUES (:name, :desc, :video_name)";
+
+        // 1. Voorbereiden Video
+        $video_filename = time() . "_" . basename($_FILES["movie_file"]["name"]);
+        $video_target = $video_dir . $video_filename;
+
+        // 2. Voorbereiden Thumbnail
+        $thumb_filename = time() . "_" . basename($_FILES["thumbnail_file"]["name"]);
+        $thumb_target = $thumb_dir . $thumb_filename;
+
+        // 3. Bestanden verplaatsen naar hun eigen map
+        $video_success = move_uploaded_file($_FILES["movie_file"]["tmp_name"], $video_target);
+        $thumb_success = move_uploaded_file($_FILES["thumbnail_file"]["tmp_name"], $thumb_target);
+
+        if ($video_success && $thumb_success) {
+            // 4. Sla alleen de bestandsnamen op in de Database
+            $sql = "INSERT INTO Video (name, beschrijving, video, thumbnail) VALUES (:name, :desc, :video, :thumb)";
             $stmt = $conn->prepare($sql);
             
-            $stmt->bindParam(':name', $movie_name);
-            $stmt->bindParam(':desc', $movie_desc);
-            $stmt->bindParam(':video_name', $clean_file_name); // Hier staat GEEN 'uploads/' meer voor
+            $stmt->execute([
+                ':name'  => $movie_name,
+                ':desc'  => $movie_desc,
+                ':video' => $video_filename,
+                ':thumb' => $thumb_filename
+            ]);
 
-            $stmt->execute();
-            
-            echo "<h3>Gelukt!</h3> De film staat in de database als: <code>$clean_file_name</code>";
+            header("Location: voorpagina.php?upload=success");
+            exit();
         } else {
-            echo "Fout: Bestand verplaatsen mislukt.";
+            echo "Fout bij het uploaden van de bestanden.";
         }
     }
-    header("Location: index.php"); exit();
 } catch(PDOException $e) {
     echo "Fout: " . $e->getMessage();
 }
-
 $conn = null;
 ?>

@@ -33,48 +33,39 @@ try {
   </header>
 
   <main>
-    <?php
-session_start();
+    <h2>Movies</h2>
 
-$sql = "SELECT * FROM video";
-$result = $conn->query($sql);
-?>
+    <ul class="movie-list">
+      <?php
+    try {
+      $sql = "SELECT id, name, video, thumbnail  FROM video";
+         $result = $conn->query($sql);
 
-    <table class="admintabel">
-
-      <tr>
-        <th>ID</th>
-        <th>Naam</th>
-        <th>Video</th>
-        <th>Uploaded at</th>
-        <th>Acties</th>
-      </tr>
-
-      <?php while($row = $result->fetch(PDO::FETCH_ASSOC)){ ?>
-
-      <tr>
-        <td>
-          <?php echo $row['id']; ?>
-        </td>
-        <td>
-          <?php echo $row['name']; ?>
-        </td>
-        <td>
-          <?php echo $row['video']; ?>
-        </td>
-        <td>
-          <?php echo $row['uploaded at']; ?>
-        </td>
-        <td>
-          <a href="delete.php?id=<?php echo $row['id']; ?>" 
-             onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
-             Verwijderen
-          </a>
-        </td>
-      </tr>
-      <?php } ?>
-    </table>
-
+      if ($result->rowCount() > 0) {
+        while($row = $result->fetch()) {
+          ?>
+      <li>
+        <a href="videopagina.php?id=<?php echo $row['id']; ?>">
+          <img class="thumbnail" src="thumbnails/<?=htmlspecialchars($row['thumbnail']) ?>" alt="Movie Logo">
+          <div class="movie-info">
+            <span class="label">FILMNAAM</span>
+            <span class="name">
+              <?php echo $row['name']; ?>
+            </span>
+          </div>
+        </a>
+      </li>
+      <?php
+        }
+      } else {
+        echo "No records found.";
+      }
+    } catch(PDOException $e) {
+      echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+    ?>
+    </ul>
   </main>
 
   <footer>

@@ -1,77 +1,89 @@
 <?php
+session_start();
+
+// 1. DATABASE CONNECTION
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "netnix";
+$dbname = "versiebeheer";
 
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
+    die("Connection failed: " . $e->getMessage());
+}
+
+$error = "";
+
+// 2. LOGIN LOGIC
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        // Check if password matches (Supports both PHP Hash and Plain Text for your 'sap' user)
+        if (password_verify($password, $user["password"]) || $password === $user["password"]) {
+            
+            session_regenerate_id(true);
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["email"] = $user["email"];
+
+            // 3. ADMIN CHECK: Does the email contain '@admin'?
+            if (str_contains($user['email'], '@admin')) {
+                $_SESSION["role"] = "admin";
+            } else {
+                $_SESSION["role"] = "user";
+            }
+
+            header("Location: klant.php");
+            exit();
+        } else {
+            $error = "Invalid password.";
+        }
+    } else {
+        $error = "No user found with that email.";
+    }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <title>NetNix</title>
-  <link rel="stylesheet" href="style/style.css?v=<?php echo time(); ?>">
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <header>
-    <div class="topnav">
-      <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
-      <a href="index.php">Home</a>
-      <a href="adminpagina.php">Admin</a>
-      <a href="#">Login</a>
-      <input type="text" placeholder="Search">
-    </div>
-  </header>
+<div class="container">
+    <h2>Login</h2>
 
-  <main>
-    <h2>Movies</h2>
+    <?php if($error): ?>
+        <p style="color:red"><?php echo htmlspecialchars($error); ?></p>
+    <?php endif; ?>
 
-    <ul class="movie-list">
-      <?php
-    try {
-      $sql = "SELECT id, name, video, thumbnail  FROM video";
-         $result = $conn->query($sql);
+    <form method="post">
+        <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" required>
+        </div>
 
-      if ($result->rowCount() > 0) {
-        while($row = $result->fetch()) {
-          ?>
-      <li>
-        <a href="videopagina.php?id=<?php echo $row['id']; ?>">
-          <img class="thumbnail" src="thumbnails/<?=htmlspecialchars($row['thumbnail']) ?>" alt="Movie Logo">
-          <div class="movie-info">
-            <span class="label">FILMNAAM</span>
-            <span class="name">
-              <?php echo $row['name']; ?>
-            </span>
-          </div>
-        </a>
-      </li>
-      <?php
-        }
-      } else {
-        echo "No records found.";
-      }
-    } catch(PDOException $e) {
-      echo "Error: " . $e->getMessage();
-    }
-    $conn = null;
-    ?>
-    </ul>
-  </main>
+        <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
 
-  <footer>
-    <p>&copy; 2026 NetNix</p>
-  </footer>
+        <div class="footer">
+            <button type="submit" class="btn green">Login</button>
+        </div>
+    </form>
+</div>
 
 </body>
-
-</html>
+</html> 
