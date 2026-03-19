@@ -19,26 +19,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"];
     $password = $_POST["password"];
+    $action = $_POST["action"] ?? "login";
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
-        if (password_verify($password, $user["password"]) || $password === $user["password"]) {
-            
-            session_regenerate_id(true);
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["email"] = $user["email"];
-            $_SESSION["role"] = str_contains($user['email'], '@admin') ? "admin" : "user";
-
-            header("Location: voorpagina.php");
-            exit();
+    if ($action === "register") {
+        // Check if email already exists in users or admin
+        $stmt = $conn->prepare("SELECT email FROM users WHERE email = ? UNION SELECT email FROM admin WHERE email = ?");
+        $stmt->execute([$email, $email]);
+        if ($stmt->fetch()) {
+            $error = "Email is already registered";
         } else {
-            $error = "Wrong password";
+            // Hash password and register user
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
+            if ($stmt->execute([$email, $hashedPassword])) {
+                session_regenerate_id(true);
+                $_SESSION["user_id"] = $conn->lastInsertId();
+                $_SESSION["email"] = $email;
+                $_SESSION["role"] = "user";
+
+                header("Location: voorpagina.php");
+                exit();
+            } else {
+                $error = "Registration failed. Try again.";
+            }
         }
     } else {
-        $error = "User not found";
+        // Check admin table
+        $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?");
+        $stmt->execute([$email]);
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($admin) {
+            if (password_verify($password, $admin["password"]) || $password === $admin["password"]) {
+                session_regenerate_id(true);
+                $_SESSION["user_id"] = $admin["id"];
+                $_SESSION["email"] = $admin["email"];
+                $_SESSION["role"] = "admin";
+
+                header("Location: adminpagina.php");
+                exit();
+            } else {
+                $error = "Wrong password";
+            }
+        } else {
+            // Check users table
+            $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user) {
+                if (password_verify($password, $user["password"]) || $password === $user["password"]) {
+                    session_regenerate_id(true);
+                    $_SESSION["user_id"] = $user["id"];
+                    $_SESSION["email"] = $user["email"];
+                    $_SESSION["role"] = "user";
+
+                    header("Location: voorpagina.php");
+                    exit();
+                } else {
+                    $error = "Wrong password";
+                }
+            } else {
+                $error = "User not found";
+            }
+        }
     }
 }
 ?>
@@ -73,7 +117,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label class="login-page__label">Password</label>
             </div>
 
-            <button class="login-page__button" type="submit">Login</button>
+            <button class="login-page__button" type="submit" name="action" value="login">Login</button>
+            <button class="login-page__button" type="submit" name="action" value="register" style="margin-top: 15px; background-color: rgba(51,51,51,.9); color: white;">Register</button>
 
         </form>
 

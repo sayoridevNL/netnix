@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "admin") {
+    header("Location: index.php");
+    exit();
+}
 // 1. Database Connection
 $servername = "localhost";
 $username = "root";
@@ -11,8 +16,6 @@ try {
 } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
-
-session_start();
 
 // 2. Fetch Data
 $sql = "SELECT * FROM video";
@@ -32,7 +35,7 @@ $result = $conn->query($sql);
         <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
         <a href="voorpagina.php">Home</a>
         <a href="adminpagina.php">Admin</a>
-        <a href="#">Login</a>
+        <a href="index.php">Logout</a>
         <input type="text" placeholder="Search">
     </div>
 </header>
@@ -79,7 +82,7 @@ $result = $conn->query($sql);
         <span class="close-btn" onclick="closeEditModal()">&times;</span>
         <h3>Edit Movie Details</h3>
 
-        <form action="edit_process.php" method="POST">
+        <form action="edit.php" method="POST">
             <input type="hidden" name="movie_id" id="edit_id">
 
             <label class="form-label">Naam:</label><br>

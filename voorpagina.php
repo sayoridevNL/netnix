@@ -27,7 +27,7 @@ try {
       <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
       <a href="voorpagina.php">Home</a>
       <a href="adminpagina.php">Admin</a>
-      <a href="#">Login</a>
+      <a href="index.php">Logout</a>
       <input type="text" placeholder="Search">
     </div>
   </header>
