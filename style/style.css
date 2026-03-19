@@ -9,7 +9,12 @@
     background: #141414;
     color: #fff;
   }
-
+textarea {
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 400%;
+}
   header {
     background-color: #000c42;
     padding: 15px 4%;
@@ -161,42 +166,46 @@
     background-color: #000;
     object-fit: contain;
   }
-/* --- Stylish Modal Section --- */
 
-/* 1. The Trigger Logic */
-#modal-toggle {
+  /* --- Stylish Modal Section --- */
+
+  /* 1. The Trigger Logic */
+  #modal-toggle {
     display: none;
-}
+  }
 
-/* Blur the background and disable card hovers when open to stop flickering */
-#modal-toggle:checked ~ main {
+  /* Blur the background and disable card hovers when open to stop flickering */
+  #modal-toggle:checked~main {
     filter: blur(8px) grayscale(20%);
-    pointer-events: none; /* Critical: This stops the flickering */
+    pointer-events: none;
+    /* Critical: This stops the flickering */
     user-select: none;
-}
+  }
 
-#modal-toggle:checked ~ .modal-overlay {
+  #modal-toggle:checked~.modal-overlay {
     display: flex;
-}
+  }
 
-/* 2. The Overlay (Glassmorphism Effect) */
-.modal-overlay {
+  /* 2. The Overlay (Glassmorphism Effect) */
+  .modal-overlay {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85); /* Darker backdrop */
+    background: rgba(0, 0, 0, 0.85);
+    /* Darker backdrop */
     z-index: 9999;
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.3s ease;
-}
+  }
 
-/* 3. The Modal Window */
-.modal-content {
-    background: #181818; /* Solid deep grey */
+  /* 3. The Modal Window */
+  .modal-content {
+    background: #181818;
+    /* Solid deep grey */
     padding: 40px;
     border-radius: 12px;
     width: 100%;
@@ -207,18 +216,18 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
     text-align: left;
     animation: slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
+  }
 
-.modal-content h3 {
+  .modal-content h3 {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 25px;
     color: #fff;
     letter-spacing: -0.5px;
-}
+  }
 
-/* 4. Form Styling */
-.modal-content label.form-label {
+  /* 4. Form Styling */
+  .modal-content label.form-label {
     display: block;
     margin-top: 18px;
     font-size: 0.85rem;
@@ -226,11 +235,11 @@
     color: #b3b3b3;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
+  }
 
-.modal-content input[type="text"],
-.modal-content input[type="file"],
-.modal-content textarea {
+  .modal-content input[type="text"],
+  .modal-content input[type="file"],
+  .modal-content textarea {
     width: 100%;
     padding: 12px 16px;
     margin-top: 8px;
@@ -240,19 +249,21 @@
     border-radius: 6px;
     font-size: 1rem;
     transition: all 0.2s ease;
-}
+  }
 
-.modal-content input:focus, 
-.modal-content textarea:focus {
+  .modal-content input:focus,
+  .modal-content textarea:focus {
     outline: none;
-    border-color: #0046ff; /* Netflix Red border on focus */
+    border-color: #0046ff;
+    /* Netflix Red border on focus */
     background: #333;
-}
+  }
 
-/* 5. The Stylish "Save Movie" Button */
-.save-btn {
+  /* 5. The Stylish "Save Movie" Button */
+  .save-btn {
     width: 100%;
-    background: #0046ff; /* Netflix Red */
+    background: #0000ff;
+    /* Netflix Red */
     color: white;
     padding: 16px;
     border: none;
@@ -264,20 +275,58 @@
     letter-spacing: 1.5px;
     cursor: pointer;
     transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-}
+  }
 
-.save-btn:hover {
+  .save-btn:hover {
     background: #2100f4;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(64, 9, 229, 0.4);
-}
+  }
 
-.save-btn:active {
+  .save-btn:active {
     transform: translateY(0);
+  }
+
+/* Styling for the Edit Button */
+.edit-btn {
+    background-color: #ae7a28;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 12px; /* Small text as requested */
+    font-family: inherit;
+    display: inline-block;
+    text-decoration: none;
 }
 
-/* 6. Close Button */
-.close-btn {
+.edit-btn:hover {
+    background-color: #e67e22;
+}
+
+/* Styling for the Delete Button */
+.vw-btn {
+    background-color: #992e2e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 12px; /* Small text as requested */
+    font-family: inherit;
+    display: inline-block;
+    text-decoration: none; /* Removes the underline from the <a> tag */
+}
+
+.vw-btn:hover {
+    background-color: #ff0000;
+}
+
+  /* 6. Close Button */
+  .close-btn {
     position: absolute;
     top: 20px;
     right: 25px;
@@ -285,35 +334,145 @@
     color: #666;
     cursor: pointer;
     transition: color 0.2s;
-}
+  }
 
-.close-btn:hover {
+  .close-btn:hover {
     color: #fff;
-}
+  }
 
-.admintabel{
-margin-top:20px;
-border-collapse:collapse;
-width:100%;
-}
+  .admintabel {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-th,td{
-border:1px solid #ccc;
-padding:10px;
-}
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
 
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
 
-@keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
+    to {
+      opacity: 1;
+    }
+  }
 
-.thumbnail {
-  max-height: 97px;
+  @keyframes slideUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .thumbnail {
+    max-height: 97px;
     max-width: 199px;
-} 
+  }
+
+/* Container die alles centreert */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Zorgt dat hij de volle hoogte pakt om te centreren */
+    width: 100%;
+}
+
+/* De Kaart zelf */
+.login-page__card {
+    background-color: rgba(0, 0, 0, 0.85); /* Iets donkerder voor contrast */
+    padding: 60px;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.login-page__title {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+/* Input styling */
+.login-page__input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.login-page__input {
+    width: 100%;
+    height: 50px;
+    background: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 16px 20px 0;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.login-page__input:focus {
+    background: #454545;
+    border-bottom: 2px solid #0046ff; /* Subtiele rode lijn bij focus */
+}
+
+/* Floating labels */
+.login-page__label {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    color: #8c8c8c;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.login-page__input:focus + .login-page__label,
+.login-page__input:not(:placeholder-shown) + .login-page__label {
+    top: 7px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* De knop */
+.login-page__button {
+    width: 100%;
+    padding: 16px;
+    background-color: #0046ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s ease;
+}
+
+.login-page__button:hover {
+    background-color: #2100f4;
+}
+
+/* Error melding */
+.login-page__error {
+    background: #e87c03;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+}

@@ -33,8 +33,11 @@ try {
         $thumb_success = move_uploaded_file($_FILES["thumbnail_file"]["tmp_name"], $thumb_target);
 
         if ($video_success && $thumb_success) {
-            // 4. Sla alleen de bestandsnamen op in de Database
-            $sql = "INSERT INTO Video (name, beschrijving, video, thumbnail) VALUES (:name, :desc, :video, :thumb)";
+            // 4. Sla de bestandsnamen EN de huidige datum op in de Database
+            // We voegen 'uploaded_at' toe aan de kolommen en CURDATE() aan de VALUES
+            $sql = "INSERT INTO Video (name, beschrijving, video, thumbnail, uploaded_at) 
+                    VALUES (:name, :desc, :video, :thumb, CURDATE())";
+            
             $stmt = $conn->prepare($sql);
             
             $stmt->execute([
