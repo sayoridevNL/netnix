@@ -18,6 +18,7 @@ header {
   padding: 15px;
 }
 
+<<<<<<< Updated upstream
 .topnav {
   display: flex;
   align-items: center;
@@ -104,6 +105,105 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+=======
+/* Container die alles centreert */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Zorgt dat hij de volle hoogte pakt om te centreren */
+    width: 100%;
+}
+
+/* De Kaart zelf */
+.login-page__card {
+    background-color: rgba(0, 0, 0, 0.85); /* Iets donkerder voor contrast */
+    padding: 60px;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.login-page__title {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+/* Input styling */
+.login-page__input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.login-page__input {
+    width: 100%;
+    height: 50px;
+    background: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 16px 20px 0;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.login-page__input:focus {
+    background: #454545;
+    border-bottom: 2px solid #0046ff; /* Subtiele rode lijn bij focus */
+}
+
+/* Floating labels */
+.login-page__label {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    color: #8c8c8c;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.login-page__input:focus + .login-page__label,
+.login-page__input:not(:placeholder-shown) + .login-page__label {
+    top: 7px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* De knop */
+.login-page__button {
+    width: 100%;
+    padding: 16px;
+    background-color: #0046ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s ease;
+}
+
+.login-page__button:hover {
+    background-color: #2100f4;
+}
+
+/* Error melding */
+.login-page__error {
+    background: #e87c03;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+>>>>>>> Stashed changes
   .topnav {
     flex-direction: column;
     align-items: flex-start;
