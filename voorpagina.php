@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -15,6 +16,7 @@ try {
 <html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>NetNix</title>
   <link rel="stylesheet" href="style/style.css?v=<?php echo time(); ?>">
@@ -26,9 +28,10 @@ try {
     <div class="topnav">
       <img src="images/logo2.png" alt="NetNix Logo" class="logo-img">
       <a href="voorpagina.php">Home</a>
+      <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <a href="adminpagina.php">Admin</a>
+      <?php endif; ?>
       <a href="index.php">Logout</a>
-      <input type="text" placeholder="Search">
     </div>
   </header>
 

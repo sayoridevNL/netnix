@@ -1,38 +1,44 @@
 <?php
 session_start();
 
+// Database verbinding parameters
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "netnix";
 
 try {
+    // Verbinding maken met de database via PDO
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    // Als de verbinding mislukt, stopt het script met een foutmelding
+    die("Verbinding mislukt: " . $e->getMessage());
 }
 
 $error = "";
 
+// Controleer of het formulier is verzonden via een POST-request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $action = $_POST["action"] ?? "login";
+    $action = $_POST["action"] ?? "login"; // Bepaal of de actie 'login' of 'register' is
 
     if ($action === "register") {
-        // Check if email already exists in users or admin
+        // REGISTRATIE LOGICA
+        // Controleer eerst of het e-mailadres al bestaat in de tabel 'users' of 'admin'
         $stmt = $conn->prepare("SELECT email FROM users WHERE email = ? UNION SELECT email FROM admin WHERE email = ?");
         $stmt->execute([$email, $email]);
         if ($stmt->fetch()) {
-            $error = "Email is already registered";
+            $error = "E-mailadres is al geregistreerd";
         } else {
-            // Hash password and register user
+            // Wachtwoord veilig hashen voordat het wordt opgeslagen
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
             if ($stmt->execute([$email, $hashedPassword])) {
-                session_regenerate_id(true);
+                // Sessie initialiseren na succesvolle registratie
+                session_regenerate_id(true); // Voorkomt session fixation aanvallen
                 $_SESSION["user_id"] = $conn->lastInsertId();
                 $_SESSION["email"] = $email;
                 $_SESSION["role"] = "user";
@@ -40,16 +46,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: voorpagina.php");
                 exit();
             } else {
-                $error = "Registration failed. Try again.";
+                $error = "Registratie mislukt. Probeer het opnieuw.";
             }
         }
     } else {
-        // Check admin table
+        // INLOG LOGICA
+        // Controleer eerst of de gebruiker een admin is
         $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?");
         $stmt->execute([$email]);
         $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($admin) {
+            // Controleer of het wachtwoord overeenkomt (ondersteunt zowel gehashte als platte tekst voor legacy support)
             if (password_verify($password, $admin["password"]) || $password === $admin["password"]) {
                 session_regenerate_id(true);
                 $_SESSION["user_id"] = $admin["id"];
@@ -59,15 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: adminpagina.php");
                 exit();
             } else {
-                $error = "Wrong password";
+                $error = "Onjuist wachtwoord";
             }
         } else {
-            // Check users table
+            // Als geen admin gevonden is, check de 'users' tabel
             $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
             $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
+                // Controleer wachtwoord voor gewone gebruiker
                 if (password_verify($password, $user["password"]) || $password === $user["password"]) {
                     session_regenerate_id(true);
                     $_SESSION["user_id"] = $user["id"];
@@ -77,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: voorpagina.php");
                     exit();
                 } else {
-                    $error = "Wrong password";
+                    $error = "Onjuist wachtwoord";
                 }
             } else {
-                $error = "User not found";
+                $error = "Gebruiker niet gevonden";
             }
         }
     }
@@ -90,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="style/style.css">
@@ -118,7 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <button class="login-page__button" type="submit" name="action" value="login">Login</button>
-            <button class="login-page__button" type="submit" name="action" value="register" style="margin-top: 15px; background-color: rgba(51,51,51,.9); color: white;">Register</button>
+            <button class="login-page__button login-page__button--secondary" type="submit" name="action" value="register">Register</button>
+
 
         </form>
 
